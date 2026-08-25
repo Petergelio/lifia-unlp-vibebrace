@@ -39,6 +39,24 @@
  *   stepToSerial({ kind: 'XFADE', params: { duty:200, ms:1000, steps:12 } })
  *     → "XFADE,200,1000,12"
  * 
+ * Recibe: Un objeto que representa un paso.
+ * Devuelve: Un String con los datos serializados que se enviarán al Arduino, o un error indicando el tipo desconocido.
+ * 
+ * Ejemplo:
+ * 
+ * Input: {
+ *   id: "mt8rod6gw4mk",
+ *   kind: "S",
+ *   params: {
+ *     d1: 200,
+ *     d2: 200,
+ *     ms: 500,
+ *   }
+ * }
+ * 
+ * Output: "S,200,200,500"
+ * 
+ * 
  * @param {object} step
  * @returns {string}
  */
@@ -75,6 +93,35 @@ function stepToSerial(step) {
  *     { kind: 'S', params: { d1:0,   d2:0,   ms:200 } }
  *   ])
  *   → ["CLR", "S,200,200,500", "S,0,0,200", "RUN"]
+ * 
+ * 
+ * Recibe: Un Array de objetos que representan pasos.
+ * Devuelve: Un Array que empieza con "CLR"y sigue con el resto de los pasos serializados de manera ordenada listos para enviar al Arduino
+ * 
+ * Ejemplo:
+ * 
+ * Input: [
+ *   {
+ *     id: "mt8rod6gw4mk",
+ *     kind: "S",
+ *     params: {
+ *       d1: 200,
+ *       d2: 200,
+ *       ms: 500,
+ *     }
+ *   },
+ *   {
+ *     id: "mt8scieq0jrj",
+ *     kind: "S",
+ *     params: {
+ *       d1: 300,
+ *       d2: 200,
+ *       ms: 600,
+ *     }
+ *   }
+ * ]
+ * 
+ * Output: ["CLR","S,200,200,500","S,300,200,600"]
  * 
  * @param {object[]} steps
  * @returns {string[]}
