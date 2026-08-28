@@ -147,47 +147,93 @@ function patternToLines(steps) {
 function validateStep(step) {
   const p = step.params;
 
-  // Helper: verificar que un valor está en rango [min, max]
+  //── Helper: verificar que un valor está en rango [min, max]────────────────
+
+  /** 
+   *Función auxiliar que valida rangos numericos (inRange) 
+   *
+   * devuelve null si la validacion es existosa.
+   * 
+   * ejemplo:
+   * 
+   * INPUT (parametro paados a la función)
+   * val: "25" (este string numerico se puede convertir)
+   * min: 18, max: 65, name: "Edad"
+   */
   function inRange(val, min, max, name) {
     const n = Number(val);
-    if (isNaN(n))           return `${name} debe ser un número`;
+    if (isNaN(n)) return `${name} debe ser un número`;
     if (n < min || n > max) return `${name} debe estar entre ${min} y ${max} (recibido: ${n})`;
     return null;
   }
 
+  /**
+   * OUTPUT
+   * null (Validacion exitosa)
+   */
+
+
+
+  //─────────────────────Switch sección─────────────────────────────────────//
+
+  /** En este bloque de código recibe los datos necesarios para identificar el escenario y sus valores:
+   1. step: Un objeto que debe contener la propiedad .kind (ej: 'S', 'RAMP', etc.)
+   2. p: Un objeto con todas las variables numéricas a validar (ej: d1, ms, depth, etc.)
+   
+   ¿Que devuelve? 
+  
+   Devuelve un resultado de la función inRange(). Si algún valor está fuera del rango permitido, devuelve un mensaje indicando el error. 
+   Si todos los valores son correctos, devuelve false.
+
+   ejemplo :
+   INPUT: 
+
+    step = { kind: 'S' }
+    p = { d1: 100, d2: 200, ms: 1000 }
+
+
+    OUTPUT:
+
+    false poruque tosod los valores estan dentro del rango permitido.
+  
+   */
+
+
   switch (step.kind) {
     case 'S': {
       return inRange(p.d1, 0, 255, 'Motor 1')
-          || inRange(p.d2, 0, 255, 'Motor 2')
-          || inRange(p.ms, 5, 20000, 'Duración');
+        || inRange(p.d2, 0, 255, 'Motor 2')
+        || inRange(p.ms, 5, 20000, 'Duración');
     }
 
     case 'RAMP': {
       return inRange(p.m, 1, 3, 'Motor')
-          || inRange(p.d0, 0, 255, 'Intensidad inicial')
-          || inRange(p.d1, 0, 255, 'Intensidad final')
-          || inRange(p.ms, 5, 20000, 'Duración')
-          || inRange(p.steps, 2, 48, 'Pasos');
+        || inRange(p.d0, 0, 255, 'Intensidad inicial')
+        || inRange(p.d1, 0, 255, 'Intensidad final')
+        || inRange(p.ms, 5, 20000, 'Duración')
+        || inRange(p.steps, 2, 48, 'Pasos');
     }
 
     case 'TREMOLO': {
       return inRange(p.m, 1, 3, 'Motor')
-          || inRange(p.base, 0, 255, 'Base')
-          || inRange(p.depth, 0, 255, 'Depth')
-          || inRange(p.rate, 1, 50, 'Rate')
-          || inRange(p.ms, 50, 5000, 'Duración');
+        || inRange(p.base, 0, 255, 'Base')
+        || inRange(p.depth, 0, 255, 'Depth')
+        || inRange(p.rate, 1, 50, 'Rate')
+        || inRange(p.ms, 50, 5000, 'Duración');
     }
 
     case 'XFADE': {
       return inRange(p.duty, 0, 255, 'Intensidad')
-          || inRange(p.ms, 5, 20000, 'Duración')
-          || inRange(p.steps, 2, 48, 'Pasos');
+        || inRange(p.ms, 5, 20000, 'Duración')
+        || inRange(p.steps, 2, 48, 'Pasos');
     }
 
     default:
       return `Tipo desconocido: "${step.kind}"`;
   }
 }
+
+
 
 // ─── estimateDurationMs ───────────────────────────────────────────────────────
 
@@ -215,9 +261,9 @@ function estimateDurationMs(steps) {
 function savePattern(name, steps) {
   const data = {
     version: 1,
-    name:    name || 'sin nombre',
+    name: name || 'sin nombre',
     savedAt: new Date().toISOString(),
-    steps:   steps
+    steps: steps
   };
   return JSON.stringify(data, null, 2);
 }
