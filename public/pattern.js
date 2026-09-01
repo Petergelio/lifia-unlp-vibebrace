@@ -96,7 +96,7 @@ function stepToSerial(step) {
  * 
  * 
  * Recibe: Un Array de objetos que representan pasos.
- * Devuelve: Un Array que empieza con "CLR"y sigue con el resto de los pasos serializados de manera ordenada listos para enviar al Arduino
+ * Devuelve: Un Array que empieza con "CLR" y sigue con el resto de los pasos serializados de manera ordenada listos para enviar al Arduino
  * 
  * Ejemplo:
  * 
@@ -152,7 +152,7 @@ function validateStep(step) {
   /** 
    *Función auxiliar que valida rangos numericos (inRange) 
    *
-   * devuelve null si la validacion es existosa.
+   * devuelve null si la validacion es exitosa.
    * 
    * ejemplo:
    * 
@@ -162,9 +162,9 @@ function validateStep(step) {
    */
   function inRange(val, min, max, name) {
     const n = Number(val);
-    if (isNaN(n)) return `${name} debe ser un número`;
-    if (n < min || n > max) return `${name} debe estar entre ${min} y ${max} (recibido: ${n})`;
-    return null;
+    if (isNaN(n)) return val,name,`${name} debe ser un número`;
+    if (n < min || n > max) return val,name`${name} debe estar entre ${min} y ${max} (recibido: ${n})`;
+    return val,name,null;
   }
 
   /**
@@ -194,38 +194,46 @@ function validateStep(step) {
 
     OUTPUT:
 
-    false poruque tosod los valores estan dentro del rango permitido.
+    False porque todos los valores estan dentro del rango permitido.
   
    */
 
 
   switch (step.kind) {
     case 'S': {
-      return inRange(p.d1, 0, 255, 'Motor 1')
-        || inRange(p.d2, 0, 255, 'Motor 2')
-        || inRange(p.ms, 5, 20000, 'Duración');
+      return {
+        d1: inRange(p.d1, 0, 255, 'Motor 1'),
+        d2: inRange(p.d2, 0, 255, 'Motor 2'),
+        ms: inRange(p.ms, 5, 20000, 'Duración')
+      };
     }
 
     case 'RAMP': {
-      return inRange(p.m, 1, 3, 'Motor')
-        || inRange(p.d0, 0, 255, 'Intensidad inicial')
-        || inRange(p.d1, 0, 255, 'Intensidad final')
-        || inRange(p.ms, 5, 20000, 'Duración')
-        || inRange(p.steps, 2, 48, 'Pasos');
+      return {
+        m: inRange(p.m, 1, 3, 'Motor'),
+        d0: inRange(p.d0, 0, 255, 'Intensidad inicial'),
+        d1: inRange(p.d1, 0, 255, 'Intensidad final'),
+        ms: inRange(p.ms, 5, 20000, 'Duración'),
+        steps: inRange(p.steps, 2, 48, 'Pasos')
+      };
     }
 
     case 'TREMOLO': {
-      return inRange(p.m, 1, 3, 'Motor')
-        || inRange(p.base, 0, 255, 'Base')
-        || inRange(p.depth, 0, 255, 'Depth')
-        || inRange(p.rate, 1, 50, 'Rate')
-        || inRange(p.ms, 50, 5000, 'Duración');
+      return {
+        p: inRange(p.m, 1, 3, 'Motor'),
+        base: inRange(p.base, 0, 255, 'Base'),
+        depth: inRange(p.depth, 0, 255, 'Depth'),
+        rate: inRange(p.rate, 1, 50, 'Rate'),
+        ms: inRange(p.ms, 50, 5000, 'Duración')
+      };
     }
 
     case 'XFADE': {
-      return inRange(p.duty, 0, 255, 'Intensidad')
-        || inRange(p.ms, 5, 20000, 'Duración')
-        || inRange(p.steps, 2, 48, 'Pasos');
+      return {
+        duty: inRange(p.duty, 0, 255, 'Intensidad'),
+        ms: inRange(p.ms, 5, 20000, 'Duración'),
+        steps: inRange(p.steps, 2, 48, 'Pasos')
+      };
     }
 
     default:
