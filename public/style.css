@@ -255,6 +255,10 @@ button:disabled {
   margin-top: 12px;
 }
 
+.form-row .error-msg {
+  color: var(--color-accent)
+}
+
 .params-group {
   border-top: 1px solid var(--color-border);
   padding-top: 10px;

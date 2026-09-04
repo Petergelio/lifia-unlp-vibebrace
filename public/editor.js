@@ -212,11 +212,25 @@ btnAddStep.addEventListener('click', () => {
 	const { kind, params } = readFormParams();
 	const step = { id: generateId(), kind, params };
 
-	const error = validateStep(step);
-	if (error) {
-		log(`Parámetro inválido: ${error}`, 'error');
-		return;
+	const lowkind = kind.toLowerCase() // A lowercase para que pueda encontrar el nodo del mensaje de error
+	const validation = validateStep(step);
+	let error = false;
+	for (const key in validation) {
+		const value = validation[key]
+		const result = value[1]
+
+		// Obtener elemento del form para usarlo para obtener el mensaje de error
+		const kindParamElement = document.querySelector(`#${lowkind}_${key}`)
+		const errorMsg = kindParamElement.parentElement.querySelector(".error-msg")
+		
+		if (result !== null) {
+			error = true;
+			errorMsg.textContent = result
+		} else {
+			errorMsg.textContent = "";
+		}
 	}
+	if (error) return;
 
 	steps.push(step);
 	renderStepList();
@@ -391,9 +405,9 @@ function drawTimeline() {
 			ctx.textAlign = 'center';
 			ctx.fillText(`${Math.round(d1)}`, x + blockW / 2, H / 2 - h1 / 2);
 
-//Contador de ms (duración)
+			//Contador de ms (duración)
 			ctx.font = '9px system-ui';
-			ctx.fillText(`${step.params.ms} ms`, x + blockW / 2, H / 2 - h2 / 2 + 12); 
+			ctx.fillText(`${step.params.ms} ms`, x + blockW / 2, H / 2 - h2 / 2 + 12);
 		}
 
 		// Motor 2 (carril inferior, crece hacia abajo desde el centro)
@@ -403,9 +417,9 @@ function drawTimeline() {
 			ctx.font = '10px system-ui';
 			ctx.textAlign = 'center';
 			ctx.fillText(`${Math.round(d2)}`, x + blockW / 2, H / 2 + h2 / 2);
-			
+
 			ctx.font = '9px system-ui';
-			ctx.fillText(`${step.params.ms} ms`, x + blockW / 2, H / 2 + h2 / 2 + 12); 
+			ctx.fillText(`${step.params.ms} ms`, x + blockW / 2, H / 2 + h2 / 2 + 12);
 		}
 
 		// Borde del bloque (separación visual)

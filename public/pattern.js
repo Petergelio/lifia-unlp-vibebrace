@@ -162,9 +162,9 @@ function validateStep(step) {
    */
   function inRange(val, min, max, name) {
     const n = Number(val);
-    if (isNaN(n)) return val,name,`${name} debe ser un número`;
-    if (n < min || n > max) return val,name`${name} debe estar entre ${min} y ${max} (recibido: ${n})`;
-    return val,name,null;
+    if (isNaN(n)) return [val,`${name} debe ser un número`];
+    if (n < min || n > max) return [val,`${name} debe estar entre ${min} y ${max} (recibido: ${n})`];
+    return [val,null];
   }
 
   /**

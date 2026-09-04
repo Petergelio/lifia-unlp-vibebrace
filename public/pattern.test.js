@@ -10,6 +10,17 @@ function test(description, fn) {
 }
 
 
+function handleValidateStep(result) {
+  // Devuelve true si es valido
+  for (const i in result) {
+    const val = result[i]
+    if (val[1] !== null) {
+      return false;
+    }
+  }
+  return true
+}
+
 // Tests de stepToSerial
 
 test('S: genera la línea correcta', () => {
@@ -26,17 +37,17 @@ test('RAMP: genera la línea correcta', () => {
 
 test('TREMOLO: validación incorrecta', () => {
   const result = validateStep({ kind: 'TREMOLO', params: { m: 1, base: 340, depth: 80, rate: 5, ms: 1000 } });
-  console.assert(result === null, `Recibido "${result}"`);
+  console.assert(handleValidateStep(result) === true, `Recibido "${JSON.stringify(result, null, 2)}"`);
 });
 
 test('XFADE: validación incorrecta', () => {
   const result = validateStep({ kind: 'XFADE', params: { duty: 200, ms: 1000, steps: 64 } });
-  console.assert(result === null, `Recibido "${result}"`);
+  console.assert(handleValidateStep(result) === true, `Recibido "${JSON.stringify(result, null, 2)}"`);
 });
 
 test('XFADE: validación correcta', () => {
   const result = validateStep({ kind: 'XFADE', params: { duty: 200, ms: 1000, steps: 6 } });
-  console.assert(result === null, `Recibido "${result}"`);
+  console.assert(handleValidateStep(result) === true, `Recibido "${JSON.stringify(result, null, 2)}"`);
 });
 
 test('patternsTolines: validación correcta', () => {
