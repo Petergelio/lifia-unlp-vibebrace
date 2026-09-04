@@ -220,7 +220,7 @@ function validateStep(step) {
 
     case 'TREMOLO': {
       return {
-        p: inRange(p.m, 1, 3, 'Motor'),
+        m: inRange(p.m, 1, 3, 'Motor'),
         base: inRange(p.base, 0, 255, 'Base'),
         depth: inRange(p.depth, 0, 255, 'Depth'),
         rate: inRange(p.rate, 1, 50, 'Rate'),

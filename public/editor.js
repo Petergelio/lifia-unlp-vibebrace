@@ -212,16 +212,15 @@ btnAddStep.addEventListener('click', () => {
 	const { kind, params } = readFormParams();
 	const step = { id: generateId(), kind, params };
 
-	const lowkind = kind.toLowerCase() // A lowercase para que pueda encontrar el nodo del mensaje de error
 	const validation = validateStep(step);
 	let error = false;
 	for (const key in validation) {
 		const value = validation[key]
 		const result = value[1]
 
-		// Obtener elemento del form para usarlo para obtener el mensaje de error
-		const kindParamElement = document.querySelector(`#${lowkind}_${key}`)
-		const errorMsg = kindParamElement.parentElement.querySelector(".error-msg")
+		// Obtener elemento del form para usarlo para obtener el mensaje de erro
+		const kindParamElement = document.querySelector(`#${kind}_${key}`)
+		const errorMsg = kindParamElement.querySelector(".error-msg")
 		
 		if (result !== null) {
 			error = true;
@@ -251,6 +250,21 @@ function deleteStep(id) {
 	drawTimeline();
 }
 
+
+
+//_____________Función que permite duplicar los pasos de la lista_______________//
+function duplicateStep(id) {
+	const step = steps.find(s => s.id === id);
+	const clone = {...step}
+	clone.id = generateId();
+	const indiceRef = steps.findIndex(s => s.id === id);
+	if (indiceRef !== -1) {
+		steps.splice(indiceRef + 1, 0, clone);
+	}
+	renderStepList();
+	drawTimeline();
+}
+
 function renderStepList() {
 	stepCount.textContent = `(${steps.length})`;
 	btnSend.disabled = !connected || steps.length === 0;
@@ -265,10 +279,12 @@ function renderStepList() {
 		const li = document.createElement('li');
 		li.className = 'step-item';
 		li.innerHTML = `
-      <span class="step-item__kind">${step.kind}</span>
-      <span class="step-item__params">${stepToSerial(step)}</span>
-      <button class="step-item__delete" title="Eliminar">×</button>
-    `;
+      		<span class="step-item__kind">${step.kind}</span>
+      		<span class="step-item__params">${stepToSerial(step)}</span>
+	  		<button class = "step-item__duplicate" title = "Duplicar">Duplicar paso</button>
+      		<button class="step-item__delete" title="Eliminar">×</button>
+    	`;
+		li.querySelector('.step-item__duplicate').addEventListener('click', () =>duplicateStep(step.id));
 		li.querySelector('.step-item__delete').addEventListener('click', () => deleteStep(step.id));
 		stepList.appendChild(li);
 	});

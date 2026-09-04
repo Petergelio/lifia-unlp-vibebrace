@@ -67,17 +67,17 @@
 
       <!-- Parámetros dinámicos según el tipo seleccionado -->
       <div id="paramsS" class="params-group">
-        <div class="form-row">
+        <div id="S_d1" class="form-row">
           <label for="s_d1">Motor 1 (0–255)</label>
           <input type="number" id="s_d1" min="0" max="255" value="200">
           <span class="error-msg"></span>
         </div>
-        <div class="form-row">
+        <div id="S_d2" class="form-row">
           <label for="s_d2">Motor 2 (0–255)</label>
           <input type="number" id="s_d2" min="0" max="255" value="200">
           <span class="error-msg"></span>
         </div>
-        <div class="form-row">
+        <div id="S_ms" class="form-row">
           <label for="s_ms">Duración (ms)</label>
           <input type="number" id="s_ms" min="5" max="20000" value="500">
           <span class="error-msg"></span>
@@ -85,27 +85,27 @@
       </div>
 
       <div id="paramsRAMP" class="params-group" style="display:none">
-        <div class="form-row">
+        <div id="RAMP_m" class="form-row">
           <label for="ramp_m">Motor (1/2/3)</label>
           <input type="number" id="ramp_m" min="1" max="3" value="3">
           <span class="error-msg"></span>
         </div>
-        <div class="form-row">
+        <div id="RAMP_d0" class="form-row">
           <label for="ramp_d0">Intensidad inicial</label>
           <input type="number" id="ramp_d0" min="0" max="255" value="0">
           <span class="error-msg"></span>
         </div>
-        <div class="form-row">
+        <div id="RAMP_d1" class="form-row">
           <label for="ramp_d1">Intensidad final</label>
           <input type="number" id="ramp_d1" min="0" max="255" value="200">
           <span class="error-msg"></span>
         </div>
-        <div class="form-row">
+        <div id="RAMP_ms" class="form-row">
           <label for="ramp_ms">Duración total (ms)</label>
           <input type="number" id="ramp_ms" min="5" max="20000" value="1000">
           <span class="error-msg"></span>
         </div>
-        <div class="form-row">
+        <div id="RAMP_steps" class="form-row">
           <label for="ramp_steps">Pasos</label>
           <input type="number" id="ramp_steps" min="2" max="48" value="16">
           <span class="error-msg"></span>
@@ -113,27 +113,27 @@
       </div>
 
       <div id="paramsTREMOLO" class="params-group" style="display:none">
-        <div class="form-row">
+        <div id="TREMOLO_m" class="form-row">
           <label for="tr_m">Motor (1/2/3)</label>
           <input type="number" id="tr_m" min="1" max="3" value="1">
           <span class="error-msg"></span>
         </div>
-        <div class="form-row">
+        <div id="TREMOLO_base" class="form-row">
           <label for="tr_base">Base (0–255)</label>
           <input type="number" id="tr_base" min="0" max="255" value="120">
           <span class="error-msg"></span>
         </div>
-        <div class="form-row">
+        <div id="TREMOLO_depth" class="form-row">
           <label for="tr_depth">Depth (0–255)</label>
           <input type="number" id="tr_depth" min="0" max="255" value="80">
           <span class="error-msg"></span>
         </div>
-        <div class="form-row">
+        <div id="TREMOLO_rate" class="form-row">
           <label for="tr_rate">Rate (Hz)</label>
           <input type="number" id="tr_rate" min="1" max="50" value="5">
           <span class="error-msg"></span>
         </div>
-        <div class="form-row">
+        <div id="TREMOLO_ms" class="form-row">
           <label for="tr_ms">Duración (ms)</label>
           <input type="number" id="tr_ms" min="50" max="5000" value="1000">
           <span class="error-msg"></span>
@@ -141,17 +141,17 @@
       </div>
 
       <div id="paramsXFADE" class="params-group" style="display:none">
-        <div class="form-row">
+        <div id="XFADE_duty" class="form-row">
           <label for="xf_duty">Intensidad (0–255)</label>
           <input type="number" id="xf_duty" min="0" max="255" value="200">
           <span class="error-msg"></span>
         </div>
-        <div class="form-row">
+        <div id="XFADE_ms" class="form-row">
           <label for="xf_ms">Duración total (ms)</label>
           <input type="number" id="xf_ms" min="5" max="20000" value="1000">
           <span class="error-msg"></span>
         </div>
-        <div class="form-row">
+        <div id="XFADE_steps" class="form-row">
           <label for="xf_steps">Pasos</label>
           <input type="number" id="xf_steps" min="2" max="48" value="12">
           <span class="error-msg"></span>
