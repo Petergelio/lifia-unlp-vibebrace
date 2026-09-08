@@ -39,6 +39,9 @@ const canvas = document.getElementById('timelineCanvas');
 const ctx = canvas.getContext('2d');
 const stepKindSelect = document.getElementById('stepKind');
 
+
+
+
 // ─── Log ──────────────────────────────────────────────────────────────────────
 
 function log(message, type = 'info') {
@@ -221,7 +224,7 @@ btnAddStep.addEventListener('click', () => {
 		// Obtener elemento del form para usarlo para obtener el mensaje de erro
 		const kindParamElement = document.querySelector(`#${kind}_${key}`)
 		const errorMsg = kindParamElement.querySelector(".error-msg")
-		
+
 		if (result !== null) {
 			error = true;
 			errorMsg.textContent = result
@@ -255,7 +258,7 @@ function deleteStep(id) {
 //_____________Función que permite duplicar los pasos de la lista_______________//
 function duplicateStep(id) {
 	const step = steps.find(s => s.id === id);
-	const clone = {...step}
+	const clone = { ...step }
 	clone.id = generateId();
 	const indiceRef = steps.findIndex(s => s.id === id);
 	if (indiceRef !== -1) {
@@ -284,7 +287,7 @@ function renderStepList() {
 	  		<button class = "step-item__duplicate" title = "Duplicar">Duplicar paso</button>
       		<button class="step-item__delete" title="Eliminar">×</button>
     	`;
-		li.querySelector('.step-item__duplicate').addEventListener('click', () =>duplicateStep(step.id));
+		li.querySelector('.step-item__duplicate').addEventListener('click', () => duplicateStep(step.id));
 		li.querySelector('.step-item__delete').addEventListener('click', () => deleteStep(step.id));
 		stepList.appendChild(li);
 	});
@@ -359,6 +362,7 @@ fileInput.addEventListener('change', (e) => {
 function drawTimeline() {
 	const W = canvas.width;
 	const H = canvas.height;
+
 	//────────────────────────────────────────────────────────────────────────────────────────────
 
 
@@ -380,10 +384,19 @@ function drawTimeline() {
 	const laneH = H / 2 - 4;  // alto de cada carril
 	const msToX = (ms) => (ms / totalMs) * W;
 
+
+
+
 	let currentMs = 0;
 
 	for (const step of steps) {
 		const blockW = msToX(step.params.ms);
+		const x = msToX(currentMs);
+
+		// --- NUEVO: Guardamos los límites espaciales del bloque en el objeto del paso ---
+		step._canvasXStart = x;
+		step._canvasXEnd = x + blockW;
+		// --------------------------------------------------------------------------------
 
 		// Calcular intensidades para representar en el canvas
 		let d1 = 0, d2 = 0;
@@ -394,7 +407,6 @@ function drawTimeline() {
 				d2 = step.params.d2;
 				break;
 			case 'RAMP':
-				// Mostrar rampa como gradiente horizontal
 				d1 = step.params.m !== 2 ? (step.params.d0 + step.params.d1) / 2 : 0;
 				d2 = step.params.m !== 1 ? (step.params.d0 + step.params.d1) / 2 : 0;
 				break;
@@ -407,29 +419,34 @@ function drawTimeline() {
 				d2 = step.params.duty / 2;
 				break;
 		}
-
-		const x = msToX(currentMs);
 		const h1 = (d1 / 255) * laneH;
 		const h2 = (d2 / 255) * laneH;
 
-		// Motor 1 (carril superior, crece hacia arriba desde el centro)
+		// ---Cambiar el color de fondo si el bloque tiene el hover activo ---
+		if (step._isHovered) {
+			ctx.fillStyle = '#ffffff11'; // Fondo sutil resaltado
+			ctx.fillRect(x, 0, blockW, H);
+		}
+		// ---------------------------------------------------------------------------
+
+		// Motor 1 (carril superior)
 		if (h1 > 0) {
-			ctx.fillStyle = '#6500d8cc';
+			ctx.fillStyle = step._isHovered ? '#8a2be2' : '#6500d8cc';
 			ctx.fillRect(x + 1, H / 2 - h1 - 2, blockW - 2, h1);
 			ctx.fillStyle = '#ffffff';
 			ctx.font = '10px system-ui';
 			ctx.textAlign = 'center';
 			ctx.fillText(`${Math.round(d1)}`, x + blockW / 2, H / 2 - h1 / 2);
 
-			//Contador de ms (duración)
 			ctx.font = '9px system-ui';
 			ctx.fillText(`${step.params.ms} ms`, x + blockW / 2, H / 2 - h2 / 2 + 12);
 		}
 
-		// Motor 2 (carril inferior, crece hacia abajo desde el centro)
+		// Motor 2 (carril inferior)
 		if (h2 > 0) {
-			ctx.fillStyle = '#029209cc';
-			ctx.fillRect(x + 1, H / 2 + 2, blockW - 2, h2); ctx.fillStyle = '#ffffff';
+			ctx.fillStyle = step._isHovered ? '#00cc00cc' : '#029209cc';
+			ctx.fillRect(x + 1, H / 2 + 2, blockW - 2, h2);
+			ctx.fillStyle = '#ffffff';
 			ctx.font = '10px system-ui';
 			ctx.textAlign = 'center';
 			ctx.fillText(`${Math.round(d2)}`, x + blockW / 2, H / 2 + h2 / 2);
@@ -439,13 +456,58 @@ function drawTimeline() {
 		}
 
 		// Borde del bloque (separación visual)
-		ctx.strokeStyle = '#ffffff22';
+		ctx.strokeStyle = step._isHovered ? '#ffffffaa' : '#ffffff22'; // Borde más brillante en hover
 		ctx.strokeRect(x, 0, blockW, H);
 
 		currentMs += step.params.ms;
 	}
 
-	// Línea central
+	// ─── Evento Hover sobre el Timeline ────────────────────────────────
+
+	canvas.addEventListener('mousemove', (evento) => {
+		if (steps.length === 0) return;
+		const limites = canvas.getBoundingClientRect();
+		const mouseX = evento.clientX - limites.left;
+		let cambioEstado = false;
+		for (const step of steps) {
+			const dentroBloque = mouseX >= step._canvasXStart && mouseX <= step._canvasXEnd;
+			if (dentroBloque) {
+				if (!step._isHovered) {
+					step._isHovered = true;
+					cambioEstado = true;
+					canvas.style.cursor = 'pointer'; // Cambia el cursor a mano interactiva
+				}
+			} else {
+				if (step._isHovered) {
+					step._isHovered = false;
+					cambioEstado = true;
+				}
+			}
+		}
+
+		if (cambioEstado) {
+			const algunHover = steps.some(s => s._isHovered);
+			if (!algunHover) {
+				canvas.style.cursor = 'default';
+			}
+			drawTimeline();
+		}
+	});
+
+	// Quitar el efecto hover si el mouse sale por completo del área del canvas
+	canvas.addEventListener('mouseleave', () => {
+		let cambioEstado = false;
+		for (const step of steps) {
+			if (step._isHovered) {
+				step._isHovered = false;
+				cambioEstado = true;
+			}
+		}
+		if (cambioEstado) {
+			canvas.style.cursor = 'default';
+			drawTimeline();
+		}
+	});
 	ctx.strokeStyle = '#ffffff33';
 	ctx.lineWidth = 1;
 	ctx.beginPath();
@@ -453,7 +515,6 @@ function drawTimeline() {
 	ctx.lineTo(W, H / 2);
 	ctx.stroke();
 
-	// Etiqueta M1 / M2
 	ctx.fillStyle = '#6500d8cc';
 	ctx.font = '11px system-ui';
 	ctx.textAlign = 'left';
@@ -463,8 +524,71 @@ function drawTimeline() {
 	ctx.fillText('M2', 4, H - 4);
 }
 
-// ─── Init ─────────────────────────────────────────────────────────────────────
+// ─── Referencia al Tooltip HTML ──────────────────────────────────────────────
+const tooltipEl = document.getElementById('canvasTooltip');
 
+// ─── Evento Hover y Tooltip sobre el Timeline ────────────────────────────────
+canvas.addEventListener('mousemove', (evento) => {
+	if (steps.length === 0) {
+		if (tooltipEl) tooltipEl.style.display = 'none';
+		return;
+	}
+	const limites = canvas.getBoundingClientRect();
+	const mouseX = evento.clientX - limites.left;
+
+	let cambioEstado = false;
+	let pasoActivo = null;
+
+	for (const step of steps) {
+		const dentroBloque = mouseX >= step._canvasXStart && mouseX <= step._canvasXEnd;
+
+		if (dentroBloque) {
+			pasoActivo = step; // Guardamos el paso sobre el que está el mouse
+			if (!step._isHovered) {
+				step._isHovered = true;
+				cambioEstado = true;
+				canvas.style.cursor = 'pointer';
+			}
+		} else {
+			if (step._isHovered) {
+				step._isHovered = false;
+				cambioEstado = true;
+			}
+		}
+	}
+
+	if (pasoActivo && tooltipEl) {// Construir el texto usando la función nativa stepToSerial
+		tooltipEl.textContent = `${stepToSerial(pasoActivo)}`;
+		tooltipEl.style.display = 'block';
+		tooltipEl.style.left = `${evento.clientX + 15}px`;
+		tooltipEl.style.top = `${evento.clientY - 35}px`;
+	} else if (tooltipEl) {
+		tooltipEl.style.display = 'none';
+	}
+	if (cambioEstado) {
+		const algunHover = steps.some(s => s._isHovered);
+		if (!algunHover) {
+			canvas.style.cursor = 'default';
+		}
+		drawTimeline();
+	}
+});
+canvas.addEventListener('mouseleave', () => {
+	if (tooltipEl) tooltipEl.style.display = 'none';
+
+	let cambioEstado = false;
+	for (const step of steps) {
+		if (step._isHovered) {
+			step._isHovered = false;
+			cambioEstado = true;
+		}
+	}
+	if (cambioEstado) {
+		canvas.style.cursor = 'default';
+		drawTimeline();
+	}
+});
+// ─── Init ─────────────────────────────────────────────────────────────────────
 renderStepList();
 drawTimeline();
 log('VibeBrace Studio listo. Listá los puertos y conectá el Arduino.', 'info');

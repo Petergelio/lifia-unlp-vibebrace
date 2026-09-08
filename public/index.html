@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VibeBrace Studio</title>
   <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
 
   <!-- ── Toolbar ─────────────────────────────────────────────── -->
@@ -40,6 +42,7 @@
     <section class="timeline-section">
       <h2 class="section-title">Secuencia</h2>
       <canvas id="timelineCanvas" width="800" height="120"></canvas>
+      <div id="canvasTooltip" class="tooltipcanvas"></div>
       <p class="hint">El canvas se dibuja automáticamente cuando hay pasos en la lista.</p>
     </section>
 
@@ -177,4 +180,5 @@
   <script src="./editor.js"></script>
   <script src="./pattern.test.js"></script>
 </body>
+
 </html>
