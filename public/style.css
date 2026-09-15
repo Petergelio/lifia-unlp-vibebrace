@@ -189,6 +189,13 @@ button:disabled {
 
 /* ── Timeline canvas ──────────────────────────────────────────────────────── */
 
+#timemarksCanvas {
+  display: block;
+  width: 100%;
+  height: 30px;
+  background: var(--color-bg);
+}
+
 #timelineCanvas {
   display: block;
   width: 100%;

@@ -35,6 +35,8 @@ const btnClearLog = document.getElementById('btnClearLog');
 const stepList = document.getElementById('stepList');
 const stepCount = document.getElementById('stepCount');
 const logEl = document.getElementById('log');
+const marksCanvas = document.getElementById('timemarksCanvas');
+const marksCtx = marksCanvas.getContext('2d');
 const canvas = document.getElementById('timelineCanvas');
 const ctx = canvas.getContext('2d');
 const stepKindSelect = document.getElementById('stepKind');
@@ -360,13 +362,42 @@ fileInput.addEventListener('change', (e) => {
 
 //── Función donde se dibuja el canvas ──────────────────────────────────────────────────────
 function drawTimeline() {
-	const W = canvas.width;
-	const H = canvas.height;
+	// timemarkCanvas: Time marks para señalar la escala de la duración total
 
-	//────────────────────────────────────────────────────────────────────────────────────────────
+	let W = marksCanvas.width;
+	let H = marksCanvas.height;
 
+	// Limpiar
+	marksCtx.fillStyle = '#16213e';
+	marksCtx.fillRect(0, 0, W, H);
+	
+	const totalMs = estimateDurationMs(steps);
 
+	// Cantidad de ms que hay entre marcas
+	let rate = 200
+	if (totalMs > 2000) {
+		rate = 500
+	}
 
+	const markAmount = totalMs / rate // Cantidad de marca
+	// Dibujar marcas
+	for (let x = 0; x < markAmount; x++) {
+		marksCtx.fillStyle = '#ffffff33';
+		marksCtx.fillRect((x/markAmount)*W + 1, 1, 1, 10);
+
+		marksCtx.fillStyle = '#444466';
+		marksCtx.font = '8px system-ui';
+		marksCtx.textAlign = 'center';
+
+		let textPos = 1
+		if (x===0) textPos = 10;
+		marksCtx.fillText(`${rate*x} ms`, (x/markAmount)*W+textPos, 20);
+	}
+
+	// timelineCanvas ────────────────────────────────────────────────────────────────────────────────────────────
+
+	W = canvas.width;
+	H = canvas.height;
 
 	// Limpiar
 	ctx.fillStyle = '#0d0d1a';
@@ -380,12 +411,8 @@ function drawTimeline() {
 		return;
 	}
 
-	const totalMs = estimateDurationMs(steps);
 	const laneH = H / 2 - 4;  // alto de cada carril
 	const msToX = (ms) => (ms / totalMs) * W;
-
-
-
 
 	let currentMs = 0;
 
@@ -461,53 +488,6 @@ function drawTimeline() {
 
 		currentMs += step.params.ms;
 	}
-
-	// ─── Evento Hover sobre el Timeline ────────────────────────────────
-
-	canvas.addEventListener('mousemove', (evento) => {
-		if (steps.length === 0) return;
-		const limites = canvas.getBoundingClientRect();
-		const mouseX = evento.clientX - limites.left;
-		let cambioEstado = false;
-		for (const step of steps) {
-			const dentroBloque = mouseX >= step._canvasXStart && mouseX <= step._canvasXEnd;
-			if (dentroBloque) {
-				if (!step._isHovered) {
-					step._isHovered = true;
-					cambioEstado = true;
-					canvas.style.cursor = 'pointer'; // Cambia el cursor a mano interactiva
-				}
-			} else {
-				if (step._isHovered) {
-					step._isHovered = false;
-					cambioEstado = true;
-				}
-			}
-		}
-
-		if (cambioEstado) {
-			const algunHover = steps.some(s => s._isHovered);
-			if (!algunHover) {
-				canvas.style.cursor = 'default';
-			}
-			drawTimeline();
-		}
-	});
-
-	// Quitar el efecto hover si el mouse sale por completo del área del canvas
-	canvas.addEventListener('mouseleave', () => {
-		let cambioEstado = false;
-		for (const step of steps) {
-			if (step._isHovered) {
-				step._isHovered = false;
-				cambioEstado = true;
-			}
-		}
-		if (cambioEstado) {
-			canvas.style.cursor = 'default';
-			drawTimeline();
-		}
-	});
 	ctx.strokeStyle = '#ffffff33';
 	ctx.lineWidth = 1;
 	ctx.beginPath();
@@ -533,8 +513,8 @@ canvas.addEventListener('mousemove', (evento) => {
 		if (tooltipEl) tooltipEl.style.display = 'none';
 		return;
 	}
-	const limites = canvas.getBoundingClientRect();
-	const mouseX = evento.clientX - limites.left;
+	const rect = canvas.getBoundingClientRect();
+	const mouseX = (evento.clientX - rect.left) * (canvas.width / rect.width);
 
 	let cambioEstado = false;
 	let pasoActivo = null;
