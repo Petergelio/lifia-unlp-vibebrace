@@ -295,24 +295,43 @@ function renderStepList() {
 		li.querySelector('.step-item__duplicate').addEventListener('click', () => duplicateStep(step.id));
 		li.querySelector('.step-item__delete').addEventListener('click', () => deleteStep(step.id));
 
-		li.addEventListener("dragover", (event) => {
-			// Prevenir acciones determinadas del navegador
-			event.preventDefault();
-		});
-
 		li.addEventListener("dragstart", (event) => {
-			// Guardar info del paso arrastrado
+			// Guardar índice del paso arrastrado
 			draggedIndex = index
 		});
 
-		li.addEventListener("drop", (event) => {
+		li.addEventListener("dragover", (event) => {
 			event.preventDefault();
-			if (draggedIndex === null || draggedIndex === index) return
-			// Cambiar el orden de los pasos, intercambiar de lugar los pasos.
+		});
 
-			steps[index] = steps[draggedIndex]
-			steps[draggedIndex] = step
+		li.addEventListener("dragenter", (event) => {
+			const stepItem = event.target.closest(".step-item");
+			if (stepItem && draggedIndex !== index) {
+				stepItem.classList.add("orderhover");
+			}
+		});
 
+		li.addEventListener("dragleave", (event) => {
+			const stepItem = event.target.closest(".step-item");
+			if (
+				stepItem &&
+				!stepItem.contains(event.relatedTarget)
+			) {
+				stepItem.classList.remove("orderhover");
+			}
+		});
+
+		li.addEventListener("drop", (event) => {
+			console.log(event.target, draggedIndex)
+			event.preventDefault();
+
+			if (draggedIndex === null || draggedIndex === index) return;
+
+			// Elimina el elemento que se está arrastrando del array
+			// y guarda el objeto eliminado en la variable "element"
+			let element = steps.splice(draggedIndex, 1)[0];
+			steps.splice(index, 0, element);
+			// Inserta el elemento arrastrado en la posición indicada por "index".
 			draggedIndex = null;
 
 			renderStepList();

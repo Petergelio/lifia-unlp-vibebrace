@@ -232,6 +232,12 @@ button:disabled {
   border-radius: var(--radius);
   font-family: var(--font-mono);
   font-size: 12px;
+  transition: 50ms;
+}
+
+.step-item.orderhover {
+  margin-bottom: 50px;
+  transition: 150ms;
 }
 
 .step-item__kind {
