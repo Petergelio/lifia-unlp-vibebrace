@@ -388,6 +388,49 @@ fileInput.addEventListener('change', (e) => {
 	fileInput.value = ''; // permitir recargar el mismo archivo
 });
 
+// ─── Export Arduino .ino ────────────────────────────────────────────────────────
+
+const btnExportArduino = document.getElementById('btnExportArduino');
+
+if (btnExportArduino) {
+	btnExportArduino.addEventListener('click', () => {
+		if (steps.length === 0) {
+			log('No hay pasos en la secuencia para exportar', 'error');
+			return;
+		}
+
+		const nombrePatron = prompt('Nombre para el patrón de Arduino:', 'mi-patron-arduino') || 'mi-patron-arduino';
+		
+		try {
+			const codigoIno = patternToArduinoCode(nombrePatron, steps);
+			descargarArchivoIno(nombrePatron, codigoIno);
+			log(`Código Arduino exportado como "${nombrePatron}.ino"`, 'info');
+		} catch (err) {
+			log(`Error al exportar a Arduino: ${err.message}`, 'error');
+		}
+	});
+}
+
+function descargarArchivoIno(nombre, contenido) {
+	const blob = new Blob([contenido], { type: 'text/plain;charset=utf-8' });
+	const enlace = document.createElement('a');
+	const nombreArchivo = `${nombre.replace(/\s+/g, '_')}.ino`;
+	
+	enlace.download = nombreArchivo;
+	enlace.href = URL.createObjectURL(blob);
+	enlace.click();
+	
+	URL.revokeObjectURL(enlace.href);
+}
+			
+  
+
+
+
+
+
+
+
 // ─── Timeline (canvas) ────────────────────────────────────────────────────────
 
 /**

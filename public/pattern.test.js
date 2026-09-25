@@ -372,3 +372,139 @@ test('patternsTolines: Octava validación correcta', () => {
     `Recibido "${result}"`
   );
 });
+
+test('patternToArduinoCode: pulso suave', () => {
+  const result = patternToArduinoCode(
+    "pulso suave",
+    [
+      {
+        id: "mt8rod6gw4mk",
+        kind: "S",
+        params: {
+          d1: 5600,
+          d2: 2050,
+          ms: 800,
+        }
+      },
+      {
+        id: "mt8scieq0jrj",
+        kind: "S",
+        params: {
+          d1: 3050,
+          d2: 2005,
+          ms: 6000,
+        }
+      },
+      {
+        id: "mtipssr3w8ae",
+        kind: "XFADE",
+        params: {
+          duty: 360,
+          ms: 5000,
+          steps: 90
+        }
+      }
+    ]
+  );
+
+  console.assert(
+    result.includes('Serial.println("S,5600,2050,800");') &&
+    result.includes('Serial.println("S,3050,2005,6000");') &&
+    result.includes('Serial.println("XFADE,360,5000,90");'),
+    `Recibido "${result}"`
+  );
+});
+
+test('patternToArduinoCode: un solo S', () => {
+  const result = patternToArduinoCode(
+    "un solo S",
+    [
+      {
+        id: "test-s",
+        kind: "S",
+        params: {
+          d1: 200,
+          d2: 200,
+          ms: 500
+        }
+      }
+    ]
+  );
+
+  console.assert(
+    result.includes('Serial.println("S,200,200,500");'),
+    `Recibido "${result}"`
+  );
+});
+
+test('patternToArduinoCode: RAMP-Rampa', () => {
+  const result = patternToArduinoCode(
+    "Paso RAMP",
+    [
+      {
+        id: "RAMPA",
+        kind: "RAMP",
+        params: {
+        m: 3, 
+        d0: 0,
+        d1: 200, 
+        ms: 1000, 
+        steps: 16
+        }
+      }
+    ]
+  );
+
+  console.assert(
+    result.includes('Serial.println("RAMP,3,0,200,1000,16");'),
+    `Recibido "${result}"`
+  );
+});
+
+test('patternToArduinoCode: TREMOLO', () => {
+  const result = patternToArduinoCode(
+    "Paso TREMOLO",
+    [
+      {
+        id: "TREMOLO",
+        kind: "TREMOLO",
+        params: {
+        m: 1, 
+        base: 340,
+        depth: 80, 
+        rate: 5,
+        ms: 1000 
+        }
+      }
+    ]
+  );
+
+  console.assert(
+    result.includes('Serial.println("TREMOLO,1,340,80,5,1000");'),
+    `Recibido "${result}"`
+  );
+});
+
+
+
+test('patternToArduinoCode: XFADE', () => {
+  const result = patternToArduinoCode(
+    "Paso XFADE",
+    [
+      {
+        id: "XFADE",
+        kind: "XFADE",
+        params: {
+        duty: 200, 
+        ms: 1000, 
+        steps: 6
+        }
+      }
+    ]
+  );
+
+  console.assert(
+    result.includes('Serial.println("XFADE,200,1000,6");'),
+    `Recibido "${result}"`
+  );
+});
