@@ -279,10 +279,13 @@ function renderStepList() {
 		return;
 	}
 
+	let draggedIndex = null;
+
 	stepList.innerHTML = '';
-	steps.forEach((step) => {
+	steps.forEach((step, index) => {
 		const li = document.createElement('li');
 		li.className = 'step-item';
+		li.draggable = true;
 		li.innerHTML = `
       		<span class="step-item__kind">${step.kind}</span>
       		<span class="step-item__params">${stepToSerial(step)}</span>
@@ -291,6 +294,30 @@ function renderStepList() {
     	`;
 		li.querySelector('.step-item__duplicate').addEventListener('click', () => duplicateStep(step.id));
 		li.querySelector('.step-item__delete').addEventListener('click', () => deleteStep(step.id));
+
+		li.addEventListener("dragover", (event) => {
+			// Prevenir acciones determinadas del navegador
+			event.preventDefault();
+		});
+
+		li.addEventListener("dragstart", (event) => {
+			// Guardar info del paso arrastrado
+			draggedIndex = index
+		});
+
+		li.addEventListener("drop", (event) => {
+			event.preventDefault();
+			if (draggedIndex === null || draggedIndex === index) return
+			// Cambiar el orden de los pasos, intercambiar de lugar los pasos.
+
+			steps[index] = steps[draggedIndex]
+			steps[draggedIndex] = step
+
+			draggedIndex = null;
+
+			renderStepList();
+			drawTimeline();
+		});
 		stepList.appendChild(li);
 	});
 }
@@ -370,7 +397,7 @@ function drawTimeline() {
 	// Limpiar
 	marksCtx.fillStyle = '#16213e';
 	marksCtx.fillRect(0, 0, W, H);
-	
+
 	const totalMs = estimateDurationMs(steps);
 
 	// Cantidad de ms que hay entre marcas
@@ -383,15 +410,15 @@ function drawTimeline() {
 	// Dibujar marcas
 	for (let x = 0; x < markAmount; x++) {
 		marksCtx.fillStyle = '#ffffff33';
-		marksCtx.fillRect((x/markAmount)*W + 1, 1, 1, 10);
+		marksCtx.fillRect((x / markAmount) * W + 1, 1, 1, 10);
 
 		marksCtx.fillStyle = '#444466';
 		marksCtx.font = '8px system-ui';
 		marksCtx.textAlign = 'center';
 
 		let textPos = 1
-		if (x===0) textPos = 10;
-		marksCtx.fillText(`${rate*x} ms`, (x/markAmount)*W+textPos, 20);
+		if (x === 0) textPos = 10;
+		marksCtx.fillText(`${rate * x} ms`, (x / markAmount) * W + textPos, 20);
 	}
 
 	// timelineCanvas ────────────────────────────────────────────────────────────────────────────────────────────
