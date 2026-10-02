@@ -32,8 +32,14 @@ const fileInput = document.getElementById('fileInput');
 const btnAddStep = document.getElementById('btnAddStep');
 const btnClearSteps = document.getElementById('btnClearSteps');
 const btnClearLog = document.getElementById('btnClearLog');
+
 const stepList = document.getElementById('stepList');
 const stepCount = document.getElementById('stepCount');
+const presetList = document.getElementById('presetList');
+const presetApply = document.getElementById('presetApply');
+const presetAdd = document.getElementById('presetAdd');
+const presetDelete = document.getElementById('presetDelete');
+
 const logEl = document.getElementById('log');
 const marksCanvas = document.getElementById('timemarksCanvas');
 const marksCtx = marksCanvas.getContext('2d');
@@ -99,6 +105,7 @@ ws.addEventListener('close', () => {
 btnListPorts.addEventListener('click', async () => {
 	try {
 		const res = await fetch('/ports');   //Sección donde se realiza el fetch (pide al servidor los datos del puerto)
+		console.log(res)
 		const data = await res.json();
 
 		portSelect.innerHTML = '<option value="">— puerto —</option>';
@@ -256,6 +263,54 @@ function deleteStep(id) {
 }
 
 
+// Presets
+let presets = [
+	{
+		name: "Preset vacío",
+		steps: []
+	}
+]
+
+const guardados = localStorage.getItem("presets");
+if (guardados) {
+    presets = JSON.parse(guardados);
+}
+
+function renderPresets() {
+	presetList.innerHTML = ''
+	presets.forEach((preset, index) => {
+		const op = document.createElement('option');
+		op.innerText = preset.name;
+		op.value = index;
+		presetList.appendChild(op);
+	});
+	localStorage.setItem("presets",JSON.stringify(presets));
+}
+
+presetApply.addEventListener('click', () => {
+	const pattern = presets[presetList.value]
+	try {
+		steps = [].concat(pattern.steps);
+		renderStepList();
+		drawTimeline();
+		log(`Patrón "${pattern.name}" cargado (${steps.length} pasos)`, 'info');
+	} catch (err) {
+		log(`Error al cargar el archivo: ${err.message}`, 'error');
+	}
+	renderPresets();
+});
+presetAdd.addEventListener('click', () => {
+	const name = prompt('Nombre del preset:', 'mi-preset');
+	if (name === null) return;
+	presets.push({name:name,steps:steps})
+	renderPresets();
+});
+presetDelete.addEventListener('click', () => {
+	presets.splice(presetList.value, 1);
+	renderPresets();
+});
+
+renderPresets();
 
 //_____________Función que permite duplicar los pasos de la lista_______________//
 function duplicateStep(id) {
@@ -354,7 +409,8 @@ stepKindSelect.addEventListener('change', () => {
 // ─── Guardar / cargar ─────────────────────────────────────────────────────────
 
 btnSave.addEventListener('click', () => {
-	const name = prompt('Nombre del patrón:', 'mi-patron') || 'mi-patron';
+	const name = prompt('Nombre del patrón:', 'mi-patron');
+	if (name === null) return;
 	const json = savePattern(name, steps);
 	const blob = new Blob([json], { type: 'application/json' });
 	const url = URL.createObjectURL(blob);
@@ -399,8 +455,8 @@ if (btnExportArduino) {
 			return;
 		}
 
-		const nombrePatron = prompt('Nombre para el patrón de Arduino:', 'mi-patron-arduino') || 'mi-patron-arduino';
-		
+		const nombrePatron = prompt('Nombre para el patrón de Arduino:', 'mi-patron-arduino');
+		if (nombrePatron === null) return;
 		try {
 			const codigoIno = patternToArduinoCode(nombrePatron, steps);
 			descargarArchivoIno(nombrePatron, codigoIno);
@@ -415,15 +471,15 @@ function descargarArchivoIno(nombre, contenido) {
 	const blob = new Blob([contenido], { type: 'text/plain;charset=utf-8' });
 	const enlace = document.createElement('a');
 	const nombreArchivo = `${nombre.replace(/\s+/g, '_')}.ino`;
-	
+
 	enlace.download = nombreArchivo;
 	enlace.href = URL.createObjectURL(blob);
 	enlace.click();
-	
+
 	URL.revokeObjectURL(enlace.href);
 }
-			
-  
+
+
 
 
 
