@@ -1,0 +1,113 @@
+{
+  "version": 1,
+  "name": "prueba67",
+  "savedAt": "2026-10-02T16:47:26.902Z",
+  "steps": [
+    {
+      "id": "mur712927sac",
+      "kind": "S",
+      "params": {
+        "d1": 0,
+        "d2": 67,
+        "ms": 500
+      },
+      "_canvasXStart": 0,
+      "_canvasXEnd": 13.825044067327966,
+      "_isHovered": false
+    },
+    {
+      "id": "mur71ijqvyl5",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 67,
+        "d1": 210,
+        "ms": 5000,
+        "steps": 16
+      },
+      "_canvasXStart": 13.825044067327966,
+      "_canvasXEnd": 152.07548474060764,
+      "_isHovered": false
+    },
+    {
+      "id": "mur71jkuodbk",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 67,
+        "d1": 210,
+        "ms": 5000,
+        "steps": 16
+      },
+      "_canvasXStart": 152.0754847406076,
+      "_canvasXEnd": 290.32592541388726,
+      "_isHovered": false
+    },
+    {
+      "id": "mur71xwmnyfu",
+      "kind": "XFADE",
+      "params": {
+        "duty": 67,
+        "ms": 6767,
+        "steps": 4
+      },
+      "_canvasXStart": 290.32592541388726,
+      "_canvasXEnd": 477.43407182110394,
+      "_isHovered": false
+    },
+    {
+      "id": "mur723nijjs2",
+      "kind": "XFADE",
+      "params": {
+        "duty": 123,
+        "ms": 666,
+        "steps": 4
+      },
+      "_canvasXStart": 477.43407182110394,
+      "_canvasXEnd": 495.8490305187848,
+      "_isHovered": false
+    },
+    {
+      "id": "mur72ari987s",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 255,
+        "d1": 67,
+        "ms": 5000,
+        "steps": 16
+      },
+      "_canvasXStart": 495.8490305187848,
+      "_canvasXEnd": 634.0994711920645,
+      "_isHovered": false
+    },
+    {
+      "id": "mur72jda9m2b",
+      "kind": "RAMP",
+      "params": {
+        "m": 1,
+        "d0": 255,
+        "d1": 0,
+        "ms": 3000,
+        "steps": 16
+      },
+      "_canvasXStart": 634.0994711920645,
+      "_canvasXEnd": 717.0497355960323,
+      "_isHovered": false
+    },
+    {
+      "id": "mur72mvii2fx",
+      "kind": "RAMP",
+      "params": {
+        "m": 2,
+        "d0": 0,
+        "d1": 255,
+        "ms": 3000,
+        "steps": 16
+      },
+      "_canvasXStart": 717.0497355960322,
+      "_canvasXEnd": 800,
+      "_isHovered": false
+    }
+  ]
+}

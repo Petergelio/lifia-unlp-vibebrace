@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "name": "Method adveture",
+  "savedAt": "2026-10-02T16:44:10.943Z",
+  "steps": [
+    {
+      "id": "mur6xwxqywf6",
+      "kind": "XFADE",
+      "params": {
+        "duty": 255,
+        "ms": 1000,
+        "steps": 2
+      },
+      "_canvasXStart": 0,
+      "_canvasXEnd": 106.66666666666667
+    },
+    {
+      "id": "mur6y35ivwu7",
+      "kind": "S",
+      "params": {
+        "d1": 255,
+        "d2": 255,
+        "ms": 500
+      },
+      "_canvasXStart": 106.66666666666667,
+      "_canvasXEnd": 160,
+      "_isHovered": false
+    },
+    {
+      "id": "mur6y8ljzk4c",
+      "kind": "S",
+      "params": {
+        "d1": 250,
+        "d2": 0,
+        "ms": 500
+      },
+      "_canvasXStart": 160,
+      "_canvasXEnd": 213.33333333333334,
+      "_isHovered": false
+    },
+    {
+      "id": "mur6ygfqzmky",
+      "kind": "S",
+      "params": {
+        "d1": 0,
+        "d2": 255,
+        "ms": 500
+      },
+      "_canvasXStart": 213.33333333333334,
+      "_canvasXEnd": 266.6666666666667,
+      "_isHovered": false
+    },
+    {
+      "id": "mur6yvamok0n",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 0,
+        "d1": 255,
+        "ms": 5000,
+        "steps": 16
+      },
+      "_canvasXStart": 266.66666666666663,
+      "_canvasXEnd": 799.9999999999999,
+      "_isHovered": false
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "name": "Kiuxen epiciti",
+  "savedAt": "2026-10-02T16:51:42.326Z",
+  "steps": [
+    {
+      "id": "mur77b8u3r9c",
+      "kind": "S",
+      "params": {
+        "d1": 255,
+        "d2": 255,
+        "ms": 255
+      },
+      "_canvasXStart": 0,
+      "_canvasXEnd": 4.507789194564136,
+      "_isHovered": false
+    },
+    {
+      "id": "mur77w6muagw",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 0,
+        "d1": 255,
+        "ms": 20000,
+        "steps": 16
+      },
+      "_canvasXStart": 4.507789194564136,
+      "_canvasXEnd": 358.05988288586894,
+      "_isHovered": false
+    },
+    {
+      "id": "mur78scu29qm",
+      "kind": "XFADE",
+      "params": {
+        "duty": 255,
+        "ms": 20000,
+        "steps": 4
+      },
+      "_canvasXStart": 358.059882885869,
+      "_canvasXEnd": 711.6119765771739,
+      "_isHovered": false
+    },
+    {
+      "id": "mur78diux1le",
+      "kind": "TREMOLO",
+      "params": {
+        "m": 3,
+        "base": 255,
+        "depth": 0,
+        "rate": 7,
+        "ms": 5000
+      },
+      "_canvasXStart": 711.6119765771738,
+      "_canvasXEnd": 800,
+      "_isHovered": false
+    }
+  ]
+}

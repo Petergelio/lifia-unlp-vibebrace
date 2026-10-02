@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "name": "prueba1",
+  "savedAt": "2026-10-02T16:23:46.968Z",
+  "steps": [
+    {
+      "id": "mur68bwwp7oa",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 0,
+        "d1": 100,
+        "ms": 1000,
+        "steps": 16
+      },
+      "_canvasXStart": 0,
+      "_canvasXEnd": 62.99212598425197,
+      "_isHovered": false
+    },
+    {
+      "id": "mur68ja9170v",
+      "kind": "S",
+      "params": {
+        "d1": 0,
+        "d2": 0,
+        "ms": 500
+      },
+      "_canvasXStart": 62.99212598425197,
+      "_canvasXEnd": 94.48818897637796
+    },
+    {
+      "id": "mur68p54d93x",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 255,
+        "d1": 100,
+        "ms": 2000,
+        "steps": 16
+      },
+      "_canvasXStart": 94.48818897637796,
+      "_canvasXEnd": 220.4724409448819
+    },
+    {
+      "id": "mur68yjc06g2",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 100,
+        "d1": 255,
+        "ms": 200,
+        "steps": 16
+      },
+      "_canvasXStart": 220.4724409448819,
+      "_canvasXEnd": 233.0708661417323
+    },
+    {
+      "id": "mur69ku8apqc",
+      "kind": "TREMOLO",
+      "params": {
+        "m": 1,
+        "base": 255,
+        "depth": 0,
+        "rate": 50,
+        "ms": 3000
+      },
+      "_canvasXStart": 233.07086614173227,
+      "_canvasXEnd": 422.0472440944882
+    },
+    {
+      "id": "mur69og8s5th",
+      "kind": "TREMOLO",
+      "params": {
+        "m": 1,
+        "base": 255,
+        "depth": 0,
+        "rate": 15,
+        "ms": 3000
+      },
+      "_canvasXStart": 422.0472440944882,
+      "_canvasXEnd": 611.0236220472441
+    },
+    {
+      "id": "mur69wbczlta",
+      "kind": "S",
+      "params": {
+        "d1": 0,
+        "d2": 255,
+        "ms": 1000
+      },
+      "_canvasXStart": 611.0236220472441,
+      "_canvasXEnd": 674.0157480314961
+    },
+    {
+      "id": "mur6a208a7yp",
+      "kind": "XFADE",
+      "params": {
+        "duty": 255,
+        "ms": 2000,
+        "steps": 12
+      },
+      "_canvasXStart": 674.0157480314961,
+      "_canvasXEnd": 800,
+      "_isHovered": false
+    }
+  ]
+}
