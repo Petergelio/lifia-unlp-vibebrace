@@ -17,6 +17,7 @@ El editor visual permite diseñar secuencias de vibración desde el browser y en
 | `firmware/` | Código del Arduino (.ino) — no modificar |
 | `server/` | Servidor Node.js — provisto por la cátedra |
 | `public/` | Interfaz web — acá trabajan los estudiantes |
+| `examples/` | Patrones de ejemplo (.json) |
 | `docs/` | Documentación |
 
 ## Documentación
