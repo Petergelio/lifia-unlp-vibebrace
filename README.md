@@ -25,3 +25,4 @@ El editor visual permite diseñar secuencias de vibración desde el browser y en
 - [Arquitectura](docs/architecture.md)
 - [Guía de incorporación](docs/onboarding.md)
 - [Plan incremental](docs/plan_incremental.md)
+- [Circuito](docs/circuit.md)
