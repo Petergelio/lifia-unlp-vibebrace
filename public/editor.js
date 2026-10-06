@@ -28,6 +28,7 @@ const btnSend = document.getElementById('btnSend');
 const btnStop = document.getElementById('btnStop');
 const btnSave = document.getElementById('btnSave');
 const btnLoad = document.getElementById('btnLoad');
+const btnExportArduino = document.getElementById('btnExportArduino');
 const fileInput = document.getElementById('fileInput');
 const btnAddStep = document.getElementById('btnAddStep');
 const btnClearSteps = document.getElementById('btnClearSteps');
@@ -446,8 +447,6 @@ fileInput.addEventListener('change', (e) => {
 
 // ─── Export Arduino .ino ────────────────────────────────────────────────────────
 
-const btnExportArduino = document.getElementById('btnExportArduino');
-
 if (btnExportArduino) {
 	btnExportArduino.addEventListener('click', () => {
 		if (steps.length === 0) {
@@ -455,28 +454,28 @@ if (btnExportArduino) {
 			return;
 		}
 
-		const nombrePatron = prompt('Nombre para el patrón de Arduino:', 'mi-patron-arduino');
-		if (nombrePatron === null) return;
+		const namePattern = prompt('Nombre para el patrón de Arduino:', 'mi-patron-arduino');
+		if (namePattern === null) return;
 		try {
-			const codigoIno = patternToArduinoCode(nombrePatron, steps);
-			descargarArchivoIno(nombrePatron, codigoIno);
-			log(`Código Arduino exportado como "${nombrePatron}.ino"`, 'info');
+			const inoCode = patternToArduinoCode(namePattern, steps);
+			downloadInoFile(namePattern, inoCode);
+			log(`Código Arduino exportado como "${namePattern}.ino"`, 'info');
 		} catch (err) {
 			log(`Error al exportar a Arduino: ${err.message}`, 'error');
 		}
 	});
 }
 
-function descargarArchivoIno(nombre, contenido) {
-	const blob = new Blob([contenido], { type: 'text/plain;charset=utf-8' });
-	const enlace = document.createElement('a');
-	const nombreArchivo = `${nombre.replace(/\s+/g, '_')}.ino`;
+function downloadInoFile(name, content) {
+	const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+	const link = document.createElement('a');
+	const nameFile = `${name.replace(/\s+/g, '_')}.ino`;
 
-	enlace.download = nombreArchivo;
-	enlace.href = URL.createObjectURL(blob);
-	enlace.click();
+	link.download = nameFile;
+	link.href = URL.createObjectURL(blob);
+	link.click();
 
-	URL.revokeObjectURL(enlace.href);
+	URL.revokeObjectURL(link.href);
 }
 
 

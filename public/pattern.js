@@ -146,15 +146,15 @@ function patternToArduinoCode(name, steps) {
   const duration = estimateDurationMs(steps);
 
   let code = `// Patrón: "${patternName}"
-// Generado por VibeBrace Studio
+    // Generado por VibeBrace Studio
 
-void setup() {
-  Serial.begin(115200);
-}
+    void setup() {
+      Serial.begin(115200);
+    }
 
-void loop() {
-  // Enviar secuencia
-`;
+    void loop() {
+      // Enviar secuencia
+  `;
 
   for (const line of lines) {
     code += `  Serial.println("${line}");\n`;
@@ -165,10 +165,9 @@ void loop() {
   }
 
   code += `
-  // Esperar a que termine (estimado: ${duration} ms)
-  delay(${duration + 200});
-}
-`;
+    // Esperar a que termine (estimado: ${duration} ms)
+    delay(${duration + 200});
+  }`;
 
   return code;
 }
