@@ -15,15 +15,16 @@ VibeBrace Studio tiene dos partes que corren en la misma computadora:
 ┌─────────────────────────────────────────────────────────────┐
 │  PC                                                         │
 │                                                             │
-│  Browser (Chrome/Firefox)       Servidor Node.js           │
-│  ┌──────────────────────────┐   ┌─────────────────────┐    │
-│  │  public/                 │   │  server/server.js   │    │
-│  │                          │   │                     │    │
-│  │  index.html              │   │  express            │    │
-│  │  style.css               │   │  serialport         │    │
-│  │  pattern.js ◄────────────┼───┼─► ws                │    │
-│  │  editor.js               │   │                     │    │
-│  └──────────────────────────┘   └──────────┬──────────┘    │
+│  Browser (Chrome/Firefox)       Servidor Node.js            │
+│  ┌──────────────────────────┐   ┌─────────────────────┐     │
+│  │  public/                 │   │  server/server.js   │     │
+│  │                          │   │                     │     │
+│  │  index.html              │   │  express            │     │
+│  │  style.css               │   │  serialport         │     │
+│  │  pattern.js ◄────────────┼───┼─► ws                │     │
+│  │  pattern.test.js         │   │                     │     │
+│  │  editor.js               │   │                     │     │
+│  └──────────────────────────┘   └──────────┬──────────┘     │
 │                                            │ USB            │
 │  Browser → POST /send ──────────────────►  │                │
 │  Browser ← WebSocket DONE ◄────────────────┤                │
@@ -41,7 +42,8 @@ VibeBrace Studio tiene dos partes que corren en la misma computadora:
 ```
 vibesuite/
 ├── firmware/
-│   └── VibeBrace_Serial_simple.ino     ← no modificar
+│   └── VibeBrace_Serial_simple/
+│       └── VibeBrace_Serial_simple.ino     ← no modificar
 │
 ├── server/
 │   ├── server.js                       ← servidor completo (dado por la cátedra)
@@ -52,13 +54,16 @@ vibesuite/
 │   ├── index.html                      ← estructura de la página (HTML)
 │   ├── style.css                       ← estilos
 │   ├── pattern.js                      ← modelo de datos (funciones puras)
+│   ├── pattern.test.js                 ← pruebas de funciones de pattern.js (deshabilitar al lanzar el proyecto)
 │   ├── editor.js                       ← lógica de UI y comunicación
 │   └── pattern.test.js                 ← tests (a crear en Etapa 1)
 │
 └── docs/
-    ├── protocol.md
-    ├── architecture.md                 ← este archivo
-    └── onboarding.md
+    ├── architecture.md
+    ├── circuit.md                 ← este archivo
+    ├── onboarding.md                 ← este archivo
+    ├── plan_incremental.md                 ← este archivo
+    └── protocol.md
 ```
 
 ---
@@ -107,17 +112,22 @@ Los estudiantes trabajan principalmente aquí.
 Funciones puras: no tocan el DOM, no llaman al servidor. Convierten pasos (objetos JS) a líneas de texto que entiende el firmware. Son las funciones más críticas del proyecto.
 
 ```
-stepToSerial(step)          → string          "S,200,200,500"
-patternToLines(steps)       → string[]        ["CLR", "S,...", "RUN"]
-validateStep(step)          → string | null   null si está bien
-estimateDurationMs(steps)   → number          duración en ms
-savePattern(name, steps)    → string          JSON para descargar
-loadPattern(json)           → { name, steps } parsear desde archivo
-generateId()                → string          ID único para un paso
-readFormParams()            → { kind, params} leer el formulario HTML
+stepToSerial(step)                     → string          "S,200,200,500"
+patternToLines(steps)                  → string[]        ["CLR", "S,...", "RUN"]
+patternToArduinoCode(name, steps)      → string          código del patrón para ejecutar en arduino
+validateStep(step)                     → string | null   null si está bien
+estimateDurationMs(steps)              → number          duración en ms
+savePattern(name, steps)               → string          JSON para descargar
+loadPattern(json)                      → { name, steps } parsear desde archivo
+generateId()                           → string          ID único para un paso
+readFormParams()                       → { kind, params} leer el formulario HTML
 ```
 
-### `editor.js` — Lógica de UI
+## `pattern.test.js` — Archivo de pruebas
+
+Archivo para probar las funciones puras del modelo de datos. Se asegura que el modelo de datos sea correcto a lo largo de varios cambios.
+
+### `editor.js` — Lógica de UI    
 
 Maneja el DOM, el canvas y la comunicación con el servidor.
 
@@ -168,7 +178,7 @@ Variables CSS en `:root` para colores, tipografía y espaciado. Modificar aquí 
 
 ---
 
-## Flujo de datos: guardar y cargar
+## Flujo de datos: guardar, cargar y exportar
 
 ```
 Guardar:
@@ -182,6 +192,13 @@ Cargar:
   Click "Cargar" → <input type="file"> → FileReader.readAsText()
   → pattern.loadPattern(json) → { name, steps }
   → editor.js actualiza steps → renderStepList() + drawTimeline()
+  (no pasa por el servidor)
+
+Exportar:
+  Click "Exportar Arduino"
+  → prompt() para el nombre
+  → pattern.downloadInoFile(name, content) → descargar archivo .ino
+  → new Blob([content]) → <a download> → descarga en el browser
   (no pasa por el servidor)
 ```
 
