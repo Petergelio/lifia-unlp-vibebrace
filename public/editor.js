@@ -248,6 +248,9 @@ btnAddStep.addEventListener('click', () => {
 	renderStepList();
 	drawTimeline();
 	log(`Paso agregado: ${stepToSerial(step)}`, 'info');
+	if (steps.length >= 40) {
+    	console.error(`✗ Hay demasiados pasos, puede que sean dificil de leer. Aún se puede ejecutar (${steps.length} pasos)`);
+	}
 });
 
 btnClearSteps.addEventListener('click', () => {
@@ -378,7 +381,6 @@ function renderStepList() {
 		});
 
 		li.addEventListener("drop", (event) => {
-			console.log(event.target, draggedIndex)
 			event.preventDefault();
 
 			if (draggedIndex === null || draggedIndex === index) return;
