@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "name": "v-09-11-3-4",
+  "savedAt": "2026-10-13T14:45:19.281Z",
+  "steps": [
+    {
+      "id": "mv6rp1az09rq",
+      "kind": "S",
+      "params": {
+        "d1": 255,
+        "d2": 255,
+        "ms": 500
+      },
+      "_canvasXStart": 0,
+      "_canvasXEnd": 266.66666666666663,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6rqaujejpn",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 0,
+        "d1": 255,
+        "ms": 250,
+        "steps": 16
+      },
+      "_canvasXStart": 266.66666666666663,
+      "_canvasXEnd": 399.99999999999994,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6rpm6b3bzw",
+      "kind": "S",
+      "params": {
+        "d1": 255,
+        "d2": 255,
+        "ms": 250
+      },
+      "_canvasXStart": 400,
+      "_canvasXEnd": 533.3333333333333,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6rqns3fjx9",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 255,
+        "d1": 0,
+        "ms": 250,
+        "steps": 16
+      },
+      "_canvasXStart": 533.3333333333333,
+      "_canvasXEnd": 666.6666666666665,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6rq6yj3rdw",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 0,
+        "d1": 255,
+        "ms": 250,
+        "steps": 16
+      },
+      "_canvasXStart": 666.6666666666667,
+      "_canvasXEnd": 800,
+      "_isHovered": false
+    }
+  ]
+}

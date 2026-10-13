@@ -1,0 +1,220 @@
+{
+  "version": 1,
+  "name": "v-10-28-7-22",
+  "savedAt": "2026-10-13T14:45:43.912Z",
+  "steps": [
+    {
+      "id": "mv6sg4qpv4yu",
+      "kind": "S",
+      "params": {
+        "d1": 0,
+        "d2": 0,
+        "ms": 100
+      },
+      "_canvasXStart": 0,
+      "_canvasXEnd": 25,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6sg23towmk",
+      "kind": "S",
+      "params": {
+        "d1": 255,
+        "d2": 255,
+        "ms": 100
+      },
+      "_canvasXStart": 25,
+      "_canvasXEnd": 50,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6sg46h3myd",
+      "kind": "S",
+      "params": {
+        "d1": 0,
+        "d2": 0,
+        "ms": 100
+      },
+      "_canvasXStart": 50,
+      "_canvasXEnd": 75,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6sg2dd6j4n",
+      "kind": "S",
+      "params": {
+        "d1": 255,
+        "d2": 255,
+        "ms": 100
+      },
+      "_canvasXStart": 75,
+      "_canvasXEnd": 100,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6sg4ypudyp",
+      "kind": "S",
+      "params": {
+        "d1": 0,
+        "d2": 0,
+        "ms": 100
+      },
+      "_canvasXStart": 100,
+      "_canvasXEnd": 125
+    },
+    {
+      "id": "mv6sg29d32af",
+      "kind": "S",
+      "params": {
+        "d1": 255,
+        "d2": 255,
+        "ms": 100
+      },
+      "_canvasXStart": 125,
+      "_canvasXEnd": 150
+    },
+    {
+      "id": "mv6sfiztxk24",
+      "kind": "S",
+      "params": {
+        "d1": 0,
+        "d2": 0,
+        "ms": 300
+      },
+      "_canvasXStart": 150,
+      "_canvasXEnd": 225
+    },
+    {
+      "id": "mv6sfmn5n9og",
+      "kind": "S",
+      "params": {
+        "d1": 255,
+        "d2": 255,
+        "ms": 300
+      },
+      "_canvasXStart": 225,
+      "_canvasXEnd": 300,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6sfj4hurmy",
+      "kind": "S",
+      "params": {
+        "d1": 0,
+        "d2": 0,
+        "ms": 300
+      },
+      "_canvasXStart": 300,
+      "_canvasXEnd": 375,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6sflqh7qka",
+      "kind": "S",
+      "params": {
+        "d1": 255,
+        "d2": 255,
+        "ms": 300
+      },
+      "_canvasXStart": 375,
+      "_canvasXEnd": 450,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6sfjhdze6b",
+      "kind": "S",
+      "params": {
+        "d1": 0,
+        "d2": 0,
+        "ms": 300
+      },
+      "_canvasXStart": 450,
+      "_canvasXEnd": 525,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6sfluhbmqt",
+      "kind": "S",
+      "params": {
+        "d1": 255,
+        "d2": 255,
+        "ms": 300
+      },
+      "_canvasXStart": 525,
+      "_canvasXEnd": 600,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6sfjmhpexk",
+      "kind": "S",
+      "params": {
+        "d1": 0,
+        "d2": 0,
+        "ms": 300
+      },
+      "_canvasXStart": 600,
+      "_canvasXEnd": 675,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6sg0ahx3mc",
+      "kind": "S",
+      "params": {
+        "d1": 255,
+        "d2": 255,
+        "ms": 100
+      },
+      "_canvasXStart": 675,
+      "_canvasXEnd": 700,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6sg4bl070b",
+      "kind": "S",
+      "params": {
+        "d1": 0,
+        "d2": 0,
+        "ms": 100
+      },
+      "_canvasXStart": 700,
+      "_canvasXEnd": 725,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6sg0ftvp0c",
+      "kind": "S",
+      "params": {
+        "d1": 255,
+        "d2": 255,
+        "ms": 100
+      },
+      "_canvasXStart": 725,
+      "_canvasXEnd": 750,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6sg4upjlut",
+      "kind": "S",
+      "params": {
+        "d1": 0,
+        "d2": 0,
+        "ms": 100
+      },
+      "_canvasXStart": 750,
+      "_canvasXEnd": 775,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6sg0ldyk80",
+      "kind": "S",
+      "params": {
+        "d1": 255,
+        "d2": 255,
+        "ms": 100
+      },
+      "_canvasXStart": 775,
+      "_canvasXEnd": 800,
+      "_isHovered": false
+    }
+  ]
+}

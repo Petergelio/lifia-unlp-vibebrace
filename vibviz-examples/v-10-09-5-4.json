@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "name": "v-10-09-5-4",
+  "savedAt": "2026-10-13T14:44:54.665Z",
+  "steps": [
+    {
+      "id": "mv6rhlhn3w9n",
+      "kind": "S",
+      "params": {
+        "d1": 0,
+        "d2": 0,
+        "ms": 50
+      },
+      "_canvasXStart": 0,
+      "_canvasXEnd": 36.36363636363637,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6rhx0bx9yn",
+      "kind": "S",
+      "params": {
+        "d1": 255,
+        "d2": 255,
+        "ms": 500
+      },
+      "_canvasXStart": 36.36363636363637,
+      "_canvasXEnd": 400,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6rih37aera",
+      "kind": "S",
+      "params": {
+        "d1": 0,
+        "d2": 0,
+        "ms": 50
+      },
+      "_canvasXStart": 400,
+      "_canvasXEnd": 436.3636363636364,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6ri24b168p",
+      "kind": "S",
+      "params": {
+        "d1": 255,
+        "d2": 255,
+        "ms": 500
+      },
+      "_canvasXStart": 436.3636363636363,
+      "_canvasXEnd": 800,
+      "_isHovered": false
+    }
+  ]
+}

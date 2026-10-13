@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "name": "v-09-11-3-50",
+  "savedAt": "2026-10-13T14:45:30.585Z",
+  "steps": [
+    {
+      "id": "mv6rxn2qdvfc",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 0,
+        "d1": 255,
+        "ms": 225,
+        "steps": 16
+      },
+      "_canvasXStart": 0,
+      "_canvasXEnd": 100
+    },
+    {
+      "id": "mv6rxvf67erq",
+      "kind": "S",
+      "params": {
+        "d1": 0,
+        "d2": 0,
+        "ms": 225
+      },
+      "_canvasXStart": 100,
+      "_canvasXEnd": 200,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6rxn8anlz8",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 0,
+        "d1": 255,
+        "ms": 225,
+        "steps": 16
+      },
+      "_canvasXStart": 200,
+      "_canvasXEnd": 300
+    },
+    {
+      "id": "mv6rxvkiqn86",
+      "kind": "S",
+      "params": {
+        "d1": 0,
+        "d2": 0,
+        "ms": 225
+      },
+      "_canvasXStart": 300,
+      "_canvasXEnd": 400
+    },
+    {
+      "id": "mv6rxncqvw8p",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 0,
+        "d1": 255,
+        "ms": 225,
+        "steps": 16
+      },
+      "_canvasXStart": 400,
+      "_canvasXEnd": 500
+    },
+    {
+      "id": "mv6rxvp6jwbr",
+      "kind": "S",
+      "params": {
+        "d1": 0,
+        "d2": 0,
+        "ms": 225
+      },
+      "_canvasXStart": 500,
+      "_canvasXEnd": 600,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6rxnhetxcj",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 0,
+        "d1": 255,
+        "ms": 225,
+        "steps": 16
+      },
+      "_canvasXStart": 600,
+      "_canvasXEnd": 700,
+      "_isHovered": false
+    },
+    {
+      "id": "mv6rxvu28ezk",
+      "kind": "S",
+      "params": {
+        "d1": 0,
+        "d2": 0,
+        "ms": 225
+      },
+      "_canvasXStart": 700,
+      "_canvasXEnd": 800,
+      "_isHovered": false
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "name": "v-10-28-7-35",
+  "savedAt": "2026-10-13T14:43:32.433Z",
+  "steps": [
+    {
+      "id": "mv6qqt39sn1g",
+      "kind": "S",
+      "params": {
+        "d1": 255,
+        "d2": 255,
+        "ms": 1600
+      },
+      "_canvasXStart": 0,
+      "_canvasXEnd": 533.3333333333333
+    },
+    {
+      "id": "mv6qqxwt688w",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 255,
+        "d1": 50,
+        "ms": 800,
+        "steps": 16
+      },
+      "_canvasXStart": 533.3333333333333,
+      "_canvasXEnd": 799.9999999999999,
+      "_isHovered": false
+    }
+  ]
+}
