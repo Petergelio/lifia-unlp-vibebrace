@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "name": "v-09-11-4-1",
+  "savedAt": "2026-10-16T14:06:38.193Z",
+  "steps": [
+    {
+      "id": "mvb1ix7t60p5",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 0,
+        "d1": 255,
+        "ms": 250,
+        "steps": 6
+      },
+      "_canvasXStart": 0,
+      "_canvasXEnd": 100
+    },
+    {
+      "id": "mvb1ixbtrdam",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 0,
+        "d1": 255,
+        "ms": 250,
+        "steps": 6
+      },
+      "_canvasXStart": 100,
+      "_canvasXEnd": 200
+    },
+    {
+      "id": "mvb1ixg1nty8",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 0,
+        "d1": 255,
+        "ms": 250,
+        "steps": 6
+      },
+      "_canvasXStart": 200,
+      "_canvasXEnd": 300,
+      "_isHovered": false
+    },
+    {
+      "id": "mvb1j3hutj57",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 255,
+        "d1": 0,
+        "ms": 250,
+        "steps": 6
+      },
+      "_canvasXStart": 300,
+      "_canvasXEnd": 400
+    },
+    {
+      "id": "mvb1j55tm2jd",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 255,
+        "d1": 0,
+        "ms": 250,
+        "steps": 6
+      },
+      "_canvasXStart": 400,
+      "_canvasXEnd": 500,
+      "_isHovered": false
+    },
+    {
+      "id": "mvb1j5a134f8",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 255,
+        "d1": 0,
+        "ms": 250,
+        "steps": 6
+      },
+      "_canvasXStart": 500,
+      "_canvasXEnd": 600,
+      "_isHovered": false
+    },
+    {
+      "id": "mvb1j83txkge",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 0,
+        "d1": 255,
+        "ms": 250,
+        "steps": 6
+      },
+      "_canvasXStart": 600,
+      "_canvasXEnd": 700,
+      "_isHovered": false
+    },
+    {
+      "id": "mvb1ja558qti",
+      "kind": "RAMP",
+      "params": {
+        "m": 3,
+        "d0": 255,
+        "d1": 0,
+        "ms": 250,
+        "steps": 6
+      },
+      "_canvasXStart": 700,
+      "_canvasXEnd": 800,
+      "_isHovered": false
+    }
+  ]
+}
